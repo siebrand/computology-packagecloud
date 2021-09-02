@@ -74,7 +74,7 @@ define packagecloud::repo(
           exec { "apt_key_add_${normalized_name}":
             command => "wget --auth-no-challenge -qO - ${base_url}/${repo_name}/gpgkey | apt-key add -",
             path    => '/usr/bin/:/bin/',
-            unless  => "apt-key list | grep ${base_url}/${repo_name}",
+            unless  => "apt-key list | grep ${server_address}/${repo_name}",
             require => File[$normalized_name],
           }
 
