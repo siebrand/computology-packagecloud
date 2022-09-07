@@ -49,7 +49,7 @@ Puppet::Functions.create_function(:'packagecloud::build_base_url') do
 
 
   def default_impl(*args)
-    
+
     read_token = args[0]
     server_address = args[1]
 
@@ -58,6 +58,6 @@ Puppet::Functions.create_function(:'packagecloud::build_base_url') do
     uri.password = ''
 
     uri.to_s
-  
+
   end
 end

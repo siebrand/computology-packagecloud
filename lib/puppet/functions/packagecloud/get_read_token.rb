@@ -140,16 +140,16 @@ Puppet::Functions.create_function(:'packagecloud::get_read_token') do
 
 
   def default_impl(*args)
-    
+
     repo = args[0]
     master_token = args[1]
     server_address = args[2]
 
-    os = lookupvar('::operatingsystem').downcase
-    dist = lookupvar('::operatingsystemrelease')
-    hostname = lookupvar('::fqdn')
+    os = lookup('::operatingsystem').downcase
+    dist = lookup('::operatingsystemrelease')
+    hostname = lookup('::fqdn')
 
     Packagecloud::API.new(repo, master_token, server_address, os, dist, hostname).read_token
-  
+
   end
 end
