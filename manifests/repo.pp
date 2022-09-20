@@ -126,18 +126,27 @@ define packagecloud::repo(
             }
           } else {
             $yum_repo_url = $::operatingsystem ? {
-              /(RedHat|redhat|CentOS|centos)/ => "${base_url}/${repo_name}/el/${majrel}/${::architecture}/",
+              /(RedHat|redhat|CentOS|centos|Amazon|amazon)/ => "${base_url}/${repo_name}/el/${majrel}/${::architecture}/",
               /(OracleLinux|OEL)/ => "${base_url}/${repo_name}/ol/${majrel}/${::architecture}/",
               'Scientific' => "${base_url}/${repo_name}/scientific/${majrel}/${::architecture}/",
             }
             $gpg_url = "${base_url}/${repo_name}/gpgkey"
           }
 
+          # Not that pretty...
+          if $::operatingsystem == 'Amazon' {
+            if $majrel == '2' {
+              $amazon_version = '7'
+            } else {
+              $amazon_version = '6'
+            }
+          }
+
           $description = $normalized_name
           $repo_url = $::operatingsystem ? {
             /(RedHat|redhat|CentOS|centos|Scientific|OracleLinux|OEL)/ => $yum_repo_url,
             'Fedora' => "${base_url}/${repo_name}/fedora/${majrel}/${::architecture}/",
-            'Amazon' => "${base_url}/${repo_name}/el/6/${::architecture}",
+            'Amazon' => "${base_url}/${repo_name}/el/${amazon_version}/${::architecture}",
           }
 
           file { $normalized_name:
