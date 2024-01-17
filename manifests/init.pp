@@ -19,7 +19,7 @@
 #
 
 class packagecloud() {
-    case $::operatingsystem {
+    case $facts['os']['name'] {
       'debian',
       'ubuntu': {
         ensure_packages('apt-transport-https')
@@ -36,7 +36,7 @@ class packagecloud() {
         ensure_packages('pygpgme')
       }
       default: {
-        fail("Sorry, ${::operatingsystem} isn't supported. Email support@packagecloud.io for help.")
+        fail("Sorry, ${facts['os']['name']} isn't supported. Email support@packagecloud.io for help.")
       }
     }
 }

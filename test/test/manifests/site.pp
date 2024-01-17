@@ -9,7 +9,7 @@ case $operatingsystem {
         name   => 'rubygems',
     }
 
-    case $::operatingsystemrelease {
+    case $facts['os']['release']['full'] {
       /^5.*/: {
         package { 'epel5':
           ensure   => present,
