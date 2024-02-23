@@ -22,7 +22,7 @@ class packagecloud() {
     case $facts['os']['name'] {
       'debian',
       'ubuntu': {
-        ensure_packages('apt-transport-https')
+        stdlib::ensure_packages('apt-transport-https')
       }
       'RedHat',
       'redhat',
@@ -33,7 +33,7 @@ class packagecloud() {
       'Scientific',
       'OracleLinux',
       'OEL': {
-        ensure_packages('pygpgme')
+        stdlib::ensure_packages('pygpgme')
       }
       default: {
         fail("Sorry, ${facts['os']['name']} isn't supported. Email support@packagecloud.io for help.")
